@@ -11,11 +11,16 @@ public class Home : MonoBehaviour
         Instance = this;
     }
 
-    public bool TryDestroyHouse()
+    public bool TryDestroyHouse(int damage)
     {
         if (_houseLife > 1)
         {
-            _houseLife -= 1;
+            _houseLife -= damage;
+            if (_houseLife <= 0)
+            {
+                Destroy(gameObject);
+                return true;
+            }
             return false;
         }
         else

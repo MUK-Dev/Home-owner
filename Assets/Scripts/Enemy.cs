@@ -4,7 +4,10 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private float speed = 3f;
-    [SerializeField] private float rotateSpeed = 0.0025f;
+    [SerializeField] private float rotateSpeed;
+    [SerializeField] private int life = 1;
+    [SerializeField] private bool _shouldSlerp = true;
+
     private Rigidbody2D rb;
 
     private void Start()
@@ -24,12 +27,18 @@ public class Enemy : MonoBehaviour
     {
         //* Rotate the enemy towards the Home
         Vector2 targetDirection = target.position - transform.position;
-
+        //? Angle of the home from enemy
         float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
+        //? Rotation of enemy towards home
+        Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
-        Quaternion q = Quaternion.Euler(new Vector3(0, 0, angle));
+        Quaternion enemyRotation;
+        //? Check if this enemy circulates and rotates towards home
+        if (_shouldSlerp) enemyRotation = Quaternion.Slerp(transform.localRotation, targetRotation, rotateSpeed);
+        //? or goes straight for it?
+        else enemyRotation = targetRotation;
 
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, q, rotateSpeed);
+        transform.localRotation = enemyRotation;
     }
 
     private void FixedUpdate()
@@ -43,7 +52,8 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.CompareTag("Home"))
         {
             //? Check if the collided object was the home
-            bool wasHouseDestroyed = Home.Instance.TryDestroyHouse();
+            //? Damage the house with the enemys health
+            bool wasHouseDestroyed = Home.Instance.TryDestroyHouse(life);
             if (!wasHouseDestroyed)
             {
                 KillEnemy();
@@ -57,7 +67,10 @@ public class Enemy : MonoBehaviour
 
     public void KillEnemy()
     {
-        Destroy(gameObject);
+        //? If enemys life is not 0 then simply reduce its health
+        if (life > 1) life -= 1;
+        //? If it is zero then destroy it
+        else Destroy(gameObject);
     }
 
 }
