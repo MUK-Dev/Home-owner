@@ -49,3 +49,6 @@ TagManager:
   - name: Home
     uniqueID: 1231870285
     locked: 0
+  - name: Trees
+    uniqueID: 107311939
+    locked: 0
