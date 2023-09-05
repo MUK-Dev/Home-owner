@@ -99,5 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyTypes:
   - {fileID: 1725600919573715234, guid: 2daa93c4a2e550a49b5db8e97461f6ea, type: 3}
+  - {fileID: 1725600919573715234, guid: 001c789e059b51147ac42ff9f5a13f57, type: 3}
   _activationTimer: 0
   _vertical: 0

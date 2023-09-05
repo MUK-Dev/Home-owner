@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float rotateSpeed;
     [SerializeField] private int life = 1;
     [SerializeField] private bool _shouldSlerp = true;
+    [SerializeField] private float killingScore;
 
     private Rigidbody2D rb;
 
@@ -65,12 +66,20 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void KillEnemy()
+    public float KillEnemy()
     {
         //? If enemys life is not 0 then simply reduce its health
-        if (life > 1) life -= 1;
+        if (life > 1)
+        {
+            life -= 1;
+            return -1;
+        }
         //? If it is zero then destroy it
-        else Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+            return killingScore;
+        }
     }
 
 }

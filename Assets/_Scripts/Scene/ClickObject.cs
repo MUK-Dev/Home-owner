@@ -1,8 +1,24 @@
 using UnityEngine;
+using System;
 
 
 public class ClickObject : MonoBehaviour
 {
+    public static ClickObject Instance { get; private set; }
+
+    public event EventHandler<OnEnemyKillEventArgs> OnEnemyKill;
+
+    public class OnEnemyKillEventArgs : EventArgs
+    {
+        public float killScore;
+    }
+
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     void Update()
     {
         if (Input.touchCount > 0)
@@ -15,7 +31,11 @@ public class ClickObject : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     Enemy touchedEnemy = hit.collider.gameObject.GetComponent<Enemy>();
-                    touchedEnemy.KillEnemy();
+                    float killScore = touchedEnemy.KillEnemy();
+                    if (killScore != -1)
+                    {
+                        OnEnemyKill?.Invoke(this, new OnEnemyKillEventArgs { killScore = killScore });
+                    }
                 }
             }
         }
@@ -28,7 +48,11 @@ public class ClickObject : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     Enemy touchedEnemy = hit.collider.gameObject.GetComponent<Enemy>();
-                    touchedEnemy.KillEnemy();
+                    float killScore = touchedEnemy.KillEnemy();
+                    if (killScore != -1)
+                    {
+                        OnEnemyKill?.Invoke(this, new OnEnemyKillEventArgs { killScore = killScore });
+                    }
                 }
             }
         }
