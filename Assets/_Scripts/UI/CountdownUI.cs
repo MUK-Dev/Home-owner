@@ -10,7 +10,6 @@ public class CountdownUI : MonoBehaviour
     void Start()
     {
         HomeGameManager.Instance.OnStateChange += HomeGameManager_OnStateChange;
-        Hide();
     }
 
     private void HomeGameManager_OnStateChange(object sender, EventArgs e)

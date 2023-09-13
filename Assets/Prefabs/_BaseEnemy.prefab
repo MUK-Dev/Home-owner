@@ -102,6 +102,9 @@ MonoBehaviour:
   target: {fileID: 4097555989543010384, guid: 5cf7421379f7703438e41a89a027ccce, type: 3}
   speed: 3
   rotateSpeed: 0.25
+  life: 1
+  _shouldSlerp: 1
+  killingScore: 0
 --- !u!50 &5902740226047132811
 Rigidbody2D:
   serializedVersion: 4

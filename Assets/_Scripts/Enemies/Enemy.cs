@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+
+    private const string HIT = "Hit";
+
     [SerializeField] private Transform target;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotateSpeed;
@@ -9,12 +12,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private bool _shouldSlerp = true;
     [SerializeField] private float killingScore;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
+    private Animator _animator;
+
 
     private void Start()
     {
-        //? Get the rigid body of the component
-        rb = gameObject.GetComponent<Rigidbody2D>();
+        //? Get the rigid body & animator component
+        _rb = gameObject.GetComponent<Rigidbody2D>();
+        _animator = gameObject.GetComponent<Animator>();
     }
 
     private void Update()
@@ -45,7 +51,7 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         //* Move Forwards
-        rb.velocity = transform.up * speed;
+        _rb.velocity = transform.up * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -57,7 +63,7 @@ public class Enemy : MonoBehaviour
             bool wasHouseDestroyed = Home.Instance.TryDestroyHouse(life);
             if (!wasHouseDestroyed)
             {
-                KillEnemy();
+                Destroy(gameObject);
             }
             else
             {
@@ -71,6 +77,7 @@ public class Enemy : MonoBehaviour
         //? If enemys life is not 0 then simply reduce its health
         if (life > 1)
         {
+            _animator.SetTrigger(HIT);
             life -= 1;
             return -1;
         }

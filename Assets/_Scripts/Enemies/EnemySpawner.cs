@@ -8,12 +8,14 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float _activationTimer;
     [SerializeField] private bool _vertical;
     [SerializeField] private float _increaeDifficultyAfter;
+    [SerializeField] private float _increaseSpawnRateAfter;
 
     private float _spawnTimer = 0f;
     private float _spawnTimerMax = 5f;
     private int _unlockedEnemyRange = 0;
     private float _elapsedTime = 0f;
     private float _increaseDifficultyTimer;
+    private float _increaseSpawnRateTimer;
     private bool _activated = false;
 
     private HomeGameManager.State _currentState;
@@ -33,9 +35,10 @@ public class EnemySpawner : MonoBehaviour
     {
         if (_currentState == HomeGameManager.State.GamePlaying)
         {
-            //* Increase elapsed time if game is playing
+            //* Increase timers here
             _elapsedTime += Time.deltaTime;
             _increaseDifficultyTimer += Time.deltaTime;
+            _increaseSpawnRateTimer += Time.deltaTime;
         }
         //? Check if spawner is activated
         if (!_activated) CheckActivation();
@@ -61,17 +64,26 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemyWithTime()
     {
-        //* Increment the spawn timer and when it reaches max time spawn the enemy
+        //? Increment the spawn timer and when it reaches max time spawn the enemy
         _spawnTimer += Time.deltaTime;
         if (_spawnTimer >= _spawnTimerMax)
         {
             _spawnTimer = 0f;
             Spawn();
         }
+
+        //? Increase the types of enemy that can be spawned
         if (_increaseDifficultyTimer >= _increaeDifficultyAfter)
         {
             if (_unlockedEnemyRange != _enemyTypes.Count) _unlockedEnemyRange++;
             _increaeDifficultyAfter = 0f;
+        }
+
+        //? Increase spawn rate of enemies
+        if (_increaseSpawnRateTimer >= _increaseSpawnRateAfter)
+        {
+            if (_spawnTimerMax > 1) _spawnTimerMax -= 0.2f;
+            _increaseSpawnRateTimer = 0f;
         }
     }
 
