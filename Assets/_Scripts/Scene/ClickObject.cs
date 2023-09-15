@@ -19,13 +19,17 @@ public class ClickObject : MonoBehaviour
         Instance = this;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Application.isMobilePlatform)
         {
 
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+            Vector2 raycastBoxSize = new Vector2(.5f, .5f);
+
+            RaycastHit2D hit = Physics2D.BoxCast(ray.origin, raycastBoxSize, 0, ray.direction);
+
             if (hit)
             {
                 if (hit.collider.gameObject.CompareTag("Enemy"))
@@ -39,10 +43,13 @@ public class ClickObject : MonoBehaviour
                 }
             }
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Application.isEditor)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            // RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+            Vector2 raycastBoxSize = new Vector2(.5f, .5f);
+
+            RaycastHit2D hit = Physics2D.BoxCast(ray.origin, raycastBoxSize, 0, ray.direction);
             if (hit)
             {
                 if (hit.collider.gameObject.CompareTag("Enemy"))
