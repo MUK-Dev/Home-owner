@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
     private const string HIT = "Hit";
 
     [SerializeField] private Transform target;
+    [SerializeField] private ParticleSystem blood;
     [SerializeField] private float speed = 3f;
     [SerializeField] private float rotateSpeed;
     [SerializeField] private int life = 1;
@@ -85,6 +86,7 @@ public class Enemy : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            Instantiate(blood, transform.position, Quaternion.identity);
             return killingScore;
         }
     }
