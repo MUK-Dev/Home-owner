@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,14 @@ public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private Button backToMenuButton;
     [SerializeField] private Button continueWithAdButton;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+
+    public static GameOverUI Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -22,6 +31,10 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
+    public void UpdateHighScoreUI(float highScore)
+    {
+        highScoreText.text = highScore.ToString();
+    }
 
     private void Show() => gameObject.SetActive(true);
     private void Hide() => gameObject.SetActive(false);
