@@ -13,6 +13,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 934839431866939832, guid: b1aac620f427af6469b944456bb62b30, type: 3}
+      propertyPath: blood
+      value: 
+      objectReference: {fileID: 7159228154024899172, guid: 5085b2a1a1e7af2439d89f76c77da3c4, type: 3}
+    - target: {fileID: 934839431866939832, guid: b1aac620f427af6469b944456bb62b30, type: 3}
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
