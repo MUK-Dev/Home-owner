@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4097555989543010384, guid: 5cf7421379f7703438e41a89a027ccce, type: 3}
+  blood: {fileID: 7159228154024899172, guid: 5085b2a1a1e7af2439d89f76c77da3c4, type: 3}
   speed: 3
   rotateSpeed: 0.25
   life: 1
