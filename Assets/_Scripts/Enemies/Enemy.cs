@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 
     private Rigidbody2D _rb;
     private Animator _animator;
+    private float _tapDelay = 0f;
 
 
     private void Start()
@@ -74,18 +75,30 @@ public class Enemy : MonoBehaviour
 
     public float KillEnemy()
     {
-        //? If enemys life is not 0 then simply reduce its health
-        if (life > 1)
+        if (_tapDelay <= 0)
         {
-            _animator.SetTrigger(HIT);
-            life -= 1;
-            return -1;
+            //? if there is no tap delay then attack enemy and add delay
+            if (Application.isMobilePlatform) _tapDelay = .1f;
+
+            //? If enemys life is not 0 then reduce its health
+            if (life > 1)
+            {
+                _animator.SetTrigger(HIT);
+                life -= 1;
+                return -1;
+            }
+            //? If it is zero then destroy it
+            else
+            {
+                Destroy(gameObject);
+                return killingScore;
+            }
         }
-        //? If it is zero then destroy it
         else
         {
-            Destroy(gameObject);
-            return killingScore;
+            //? if there is tap delay then reduce tap delay
+            _tapDelay -= Time.deltaTime;
+            return -1;
         }
     }
 

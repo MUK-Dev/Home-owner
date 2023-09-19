@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 934839431866939832, guid: b1aac620f427af6469b944456bb62b30, type: 3}
       propertyPath: life
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 934839431866939832, guid: b1aac620f427af6469b944456bb62b30, type: 3}
       propertyPath: speed
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 934839431866939832, guid: b1aac620f427af6469b944456bb62b30, type: 3}
       propertyPath: rotateSpeed

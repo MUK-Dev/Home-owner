@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
         //? Check if spawner is activated
         if (!_activated) CheckActivation();
         //? if yes then spawn enemies with time
-        else SpawnEnemyWithTime();
+        else if (_currentState == HomeGameManager.State.GamePlaying) SpawnEnemyWithTime();
     }
 
     private void CheckActivation()

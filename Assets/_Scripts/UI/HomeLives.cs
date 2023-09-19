@@ -22,7 +22,10 @@ public class HomeLives : MonoBehaviour
 
     private void Home_OnLifeUpdate(object sender, Home.OnLifeUpdateEventArgs e)
     {
-        livesText.text = e.life.ToString();
+        if (e.life < 0) livesText.text = "0";
+
+        else livesText.text = e.life.ToString();
+
         heartAnimator.SetTrigger(LIFE_REDUCE);
     }
 
