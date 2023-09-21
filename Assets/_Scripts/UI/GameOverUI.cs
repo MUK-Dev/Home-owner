@@ -1,12 +1,13 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+//using UnityEngine.UI;
 
 public class GameOverUI : MonoBehaviour
 {
-    [SerializeField] private Button backToMenuButton;
-    [SerializeField] private Button continueWithAdButton;
+    //[SerializeField] private Button backToMenuButton;
+    //[SerializeField] private Button continueWithAdButton;
     [SerializeField] private TextMeshProUGUI highScoreText;
 
     public static GameOverUI Instance;
@@ -31,9 +32,15 @@ public class GameOverUI : MonoBehaviour
         }
     }
 
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void UpdateHighScoreUI(float highScore)
     {
         highScoreText.text = highScore.ToString();
+        LeaderBoard.Instance.SetLeaderboardEntry();
     }
 
     private void Show() => gameObject.SetActive(true);
