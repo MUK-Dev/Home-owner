@@ -5,7 +5,6 @@ public class MainMenuCanvas : MonoBehaviour
 {
     public void StartButtonClick()
     {
-        Debug.Log("Clicked");
         Loader.Load(Loader.Scene.GameScene);
     }
 

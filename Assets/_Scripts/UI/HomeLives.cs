@@ -9,6 +9,7 @@ public class HomeLives : MonoBehaviour
     [SerializeField] private Animator heartAnimator;
 
     private const string LIFE_REDUCE = "LifeReduce";
+    private bool isFirstRender = true;
 
     private void Awake()
     {
@@ -27,6 +28,12 @@ public class HomeLives : MonoBehaviour
         else livesText.text = e.life.ToString();
 
         heartAnimator.SetTrigger(LIFE_REDUCE);
+
+        if (!isFirstRender)
+        {
+            Handheld.Vibrate();
+        }
+        isFirstRender = false;
     }
 
     private void Show() => gameObject.SetActive(true);

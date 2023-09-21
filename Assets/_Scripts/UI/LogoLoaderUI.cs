@@ -15,7 +15,7 @@ public class LogoLoaderUI : MonoBehaviour
         _dots = gameObject.GetComponent<TextMeshProUGUI>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         _dotsUpdateTimer += Time.deltaTime;
         if (_dotsUpdateTimer >= _dotsUpdateTimerMax)
