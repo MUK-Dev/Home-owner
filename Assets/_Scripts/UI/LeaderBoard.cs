@@ -10,9 +10,6 @@ public class LeaderBoard : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> names;
     [SerializeField] private List<TextMeshProUGUI> scores;
     private string publicLeaderboardKey = "e8f9bbcd277045ca5155eafc1794c85c7880c1f429072990f1869d84ffc74452";
-    private string[] badWords = {
-   
-};
 
     private void Awake()
     {
@@ -42,7 +39,6 @@ public class LeaderBoard : MonoBehaviour
 
         LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, username, (int)score, ((msg) =>
         {
-            if (System.Array.IndexOf(badWords, username) != -1) return;
             GetLeaderboardKey();
         }));
     }
