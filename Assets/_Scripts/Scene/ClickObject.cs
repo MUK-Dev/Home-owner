@@ -36,6 +36,7 @@ public class ClickObject : MonoBehaviour
                 {
                     Enemy touchedEnemy = hit.collider.gameObject.GetComponent<Enemy>();
                     float killScore = touchedEnemy.KillEnemy();
+                    SoundEffectsManager.Instance.PlayBeepSound();
                     if (killScore != -1)
                     {
                         OnEnemyKill?.Invoke(this, new OnEnemyKillEventArgs { killScore = killScore });
@@ -58,6 +59,7 @@ public class ClickObject : MonoBehaviour
                     float killScore = touchedEnemy.KillEnemy();
                     if (killScore != -1)
                     {
+                        SoundEffectsManager.Instance.PlayBeepSound();
                         OnEnemyKill?.Invoke(this, new OnEnemyKillEventArgs { killScore = killScore });
                     }
                 }

@@ -34,7 +34,8 @@ public class GameOverUI : MonoBehaviour
 
     public void ReturnToMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SoundEffectsManager.Instance.PlayBeepSound();
+        Loader.Load(Loader.Scene.MainMenu);
     }
 
     public void UpdateHighScoreUI(float highScore)

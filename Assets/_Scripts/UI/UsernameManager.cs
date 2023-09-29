@@ -1751,6 +1751,8 @@ public class UsernameManager : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+
         playerName = PlayerPrefs.GetString("PlayerName");
 
         if (!string.IsNullOrEmpty(playerName))
