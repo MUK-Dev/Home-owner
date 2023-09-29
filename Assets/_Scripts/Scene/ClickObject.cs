@@ -59,7 +59,6 @@ public class ClickObject : MonoBehaviour
                     float killScore = touchedEnemy.KillEnemy();
                     if (killScore != -1)
                     {
-                        SoundEffectsManager.Instance.PlayBeepSound();
                         OnEnemyKill?.Invoke(this, new OnEnemyKillEventArgs { killScore = killScore });
                     }
                 }

@@ -91,6 +91,7 @@ public class Enemy : MonoBehaviour
             //? If it is zero then destroy it
             else
             {
+                SoundEffectsManager.Instance.PlayBeepSound();
                 Destroy(gameObject);
                 Instantiate(blood, transform.position, Quaternion.identity);
                 return killingScore;

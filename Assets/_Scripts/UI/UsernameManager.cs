@@ -1759,7 +1759,7 @@ public class UsernameManager : MonoBehaviour
         {
             welcomeBackObject.SetActive(true);
             welcomeText.text = playerName + "!";
-            Invoke("LoadSceneAfterDelay", 3f);
+            Invoke("LoadSceneAfterDelay", 2f);
         }
         else
         {
