@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 //using UnityEngine.UI;
 
@@ -36,6 +37,7 @@ public class GameOverUI : MonoBehaviour
     {
         SoundEffectsManager.Instance.PlayBeepSound();
         Loader.Load(Loader.Scene.MainMenu);
+        BannerAd.Instance.ShowBannerAd();
     }
 
     public void UpdateHighScoreUI(float highScore)

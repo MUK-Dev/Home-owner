@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.Advertisements;
 
 public class HomeGameManager : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class HomeGameManager : MonoBehaviour
 
     private void Start()
     {
+        //? Disable the banner ad
+        BannerAd.Instance.HideBannerAd();
         //* Listen to home health update
         Home.Instance.OnLifeUpdate += Home_OnLifeUpdate;
         OnStateChange?.Invoke(this, EventArgs.Empty);
