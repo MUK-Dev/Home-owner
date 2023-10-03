@@ -1752,7 +1752,10 @@ public class UsernameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
-
+        if (PlayerPrefs.HasKey("RewardedScore"))
+        {
+            PlayerPrefs.DeleteKey("RewardScore");
+        }
         playerName = PlayerPrefs.GetString("PlayerName");
 
         if (!string.IsNullOrEmpty(playerName))

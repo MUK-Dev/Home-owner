@@ -4,11 +4,18 @@ using UnityEngine.UI;
 
 public class ScoreUI : MonoBehaviour
 {
+    public static ScoreUI instance;
     [SerializeField] private GameObject gameoverUi;
     [SerializeField] private TextMeshProUGUI score;
     [SerializeField] private TextMeshProUGUI gameoverCurrentScore;
+    [HideInInspector] public float currentScore;
 
-    private float currentScore;
+    private bool hasUpdatedWithRewardedScore = false; // Flag to track if rewarded score has been used
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -17,15 +24,22 @@ public class ScoreUI : MonoBehaviour
         // Load the high score from PlayerPrefs
         float highScore = PlayerPrefs.GetFloat("HighScore", 0f);
         UpdateHighScoreUI(highScore);
-    }
 
-    private void Update()
-    {
-        // Check if the game is over
-        if (gameoverUi.activeSelf)
+        // Check if "RewardScore" exists in PlayerPrefs and it hasn't been used yet
+        if (PlayerPrefs.HasKey("RewardScore") && !hasUpdatedWithRewardedScore)
         {
-            score.gameObject.SetActive(false);
+            float rewardedScore = PlayerPrefs.GetFloat("RewardScore");
+            currentScore += rewardedScore;
+            score.text = currentScore.ToString();
+
+            // Update current score text
             gameoverCurrentScore.text = currentScore.ToString();
+
+            // Delete the "RewardScore" key
+            PlayerPrefs.DeleteKey("RewardScore");
+
+            // Update flag to indicate rewarded score has been used
+            hasUpdatedWithRewardedScore = true;
         }
     }
 
@@ -35,6 +49,14 @@ public class ScoreUI : MonoBehaviour
         {
             float previousScore = currentScore;
             currentScore += e.killScore;
+
+            if (hasUpdatedWithRewardedScore)
+            {
+                // Add to the rewarded score instead of replacing it
+                currentScore += PlayerPrefs.GetFloat("RewardScore");
+                hasUpdatedWithRewardedScore = false; // Reset the flag
+            }
+
             score.text = currentScore.ToString();
 
             // Check if the new score is higher than the current high score
@@ -49,6 +71,9 @@ public class ScoreUI : MonoBehaviour
 
                 UpdateHighScoreUI(highScore);
             }
+
+            // Update current score text
+            gameoverCurrentScore.text = currentScore.ToString();
         }
     }
 
