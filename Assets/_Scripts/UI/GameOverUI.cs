@@ -29,6 +29,10 @@ public class GameOverUI : MonoBehaviour
         var gameState = HomeGameManager.Instance.GetCurrentState();
         if (gameState == HomeGameManager.State.GameOver)
         {
+            if (PlayerPrefs.HasKey("RewardedScore"))
+            {
+                PlayerPrefs.DeleteKey("RewardScore");
+            }
             Show();
         }
     }
