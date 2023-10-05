@@ -1,15 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 [RequireComponent(typeof(AudioSource))]
 public class BackgroundMusic : MonoBehaviour
 {
+    public static BackgroundMusic Instance { get; private set; }
+
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioClip[] _audioClips;
 
     private int _previousSongIndex;
+    private bool _isMusicManuallyPaused = false;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -21,7 +26,7 @@ public class BackgroundMusic : MonoBehaviour
 
     private void Update()
     {
-        if (!_musicSource.isPlaying)
+        if (!_musicSource.isPlaying && !_isMusicManuallyPaused)
         {
             _musicSource.clip = GetRandomAudioClip();
 
@@ -46,5 +51,25 @@ public class BackgroundMusic : MonoBehaviour
 
         return _audioClips[generatedRandomIndex];
     }
+
+    public bool ToggleMusic()
+    {
+        if (_musicSource.isPlaying)
+        {
+
+            _musicSource.Pause();
+            _isMusicManuallyPaused = true;
+        }
+        else
+        {
+
+            _musicSource.UnPause();
+            _isMusicManuallyPaused = false;
+        }
+
+        return _musicSource.isPlaying;
+    }
+
+    public bool GetMusicStatus() => _musicSource.isPlaying;
 
 }
