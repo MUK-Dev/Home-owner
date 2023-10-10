@@ -61,7 +61,7 @@ public class ScoreUI : MonoBehaviour
 
             // Check if the new score is higher than the current high score
             float highScore = PlayerPrefs.GetFloat("HighScore", 0f);
-            if (currentScore > highScore)
+            if (currentScore > highScore && gameoverUi.activeSelf)
             {
                 highScore = currentScore;
 
