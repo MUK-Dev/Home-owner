@@ -33,6 +33,21 @@ public class GameOverUI : MonoBehaviour
             {
                 PlayerPrefs.DeleteKey("RewardScore");
             }
+
+            // Check if the new score is higher than the current high score
+            float highScore = PlayerPrefs.GetFloat("HighScore", 0f);
+            if (ScoreUI.instance.currentScore > highScore )
+            {
+                highScore = ScoreUI.instance.currentScore;
+
+                // Save the new high score to PlayerPrefs
+                PlayerPrefs.SetFloat("HighScore", highScore);
+                PlayerPrefs.Save();
+
+                UpdateHighScoreUI(highScore);
+
+                Debug.Log("New High Score: " + highScore);
+            }
             Show();
         }
     }
