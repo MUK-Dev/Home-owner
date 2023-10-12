@@ -22,6 +22,7 @@ public class MainMenuCanvas : MonoBehaviour
     public void BackButton()
     {
         SoundEffectsManager.Instance.PlayBeepSound();
+        InterstitialAds.Instance.ShowAd();
         leaderBoard.SetActive(false);
         menu.SetActive(true);
     }
