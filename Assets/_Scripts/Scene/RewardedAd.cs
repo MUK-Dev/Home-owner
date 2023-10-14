@@ -3,9 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 
-public class RewardedAd: MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
+public class RewardedAd : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    public static RewardedAd Instance { get; private set; } 
+    public static RewardedAd Instance { get; private set; }
     [SerializeField] Button _showAdButton;
     [SerializeField] string _androidAdUnitId = "Rewarded_Android";
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
@@ -23,6 +23,8 @@ public class RewardedAd: MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
 
         // Disable the button until the ad is ready to show:
         _showAdButton.interactable = false;
+        _showAdButton.onClick.AddListener(ShowAd);
+        DontDestroyOnLoad(this);
     }
 
     void Start()
@@ -45,8 +47,6 @@ public class RewardedAd: MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
 
         if (adUnitId.Equals(_adUnitId))
         {
-            // Configure the button to call the ShowAd() method when clicked:
-            _showAdButton.onClick.AddListener(ShowAd);
             // Enable the button for users to click:
             _showAdButton.interactable = true;
         }
@@ -75,11 +75,15 @@ public class RewardedAd: MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
             // Reset the game 
             ResetGame();
         }
+        else
+        {
+            LoadAd();
+        }
     }
 
     private void ResetGame()
     {
-      SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene");
     }
     // Implement Load and Show Listener error callbacks:
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
@@ -95,11 +99,13 @@ public class RewardedAd: MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowList
     }
 
     public void OnUnityAdsShowStart(string adUnitId) { }
+
+
     public void OnUnityAdsShowClick(string adUnitId) { }
 
-    void OnDestroy()
-    {
-        // Clean up the button listeners:
-        _showAdButton.onClick.RemoveAllListeners();
-    }
+    // void OnDestroy()
+    // {
+    //     // Clean up the button listeners:
+    //     _showAdButton.onClick.RemoveAllListeners();
+    // }
 }
